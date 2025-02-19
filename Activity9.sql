@@ -5,10 +5,10 @@ city text,
 commission real);
 
 insert into salesman(s_id, s_name, city, commission) values("S101","Tony Stark","New York",0.15);
-insert into salesman(s_id, s_name, city, commission) values("S102","Steve Roger","D.C.Washington",0.1);
-insert into salesman(s_id, s_name, city, commission) values("S103","Nick Fury","Ohio",0.2);
+insert into salesman(s_id, s_name, city, commission) values("S102","Steve Roger","D.C.Washington",0.10);
+insert into salesman(s_id, s_name, city, commission) values("S103","Nick Fury","Ohio",0.20);
 insert into salesman(s_id, s_name, city, commission) values("S104","Bruce Banner","Chicago",0.25);
-insert into salesman(s_id, s_name, city, commission) values("S105","Peter Parker","New Jersey",0.3);
+insert into salesman(s_id, s_name, city, commission) values("S105","Peter Parker","New Jersey",0.30);
 
 create table if not exists customer(
 c_id text Primarykey,
@@ -43,3 +43,9 @@ select customer.city, salesman.city from orders join salesman on orders.s_id = s
 select orders.o_no, customer.c_name from orders join customer on orders.c_id = customer.c_id;
 
 select customer.c_name as "Customer Name", customer.grade as Grade from orders join salesman on orders.s_id = salesman.s_id join customer on orders.c_id = customer.c_id where customer.grade is not null;
+
+select customer.c_name as "Customer Name", customer.city as "Customer City", salesman.s_name as "Salesman Name", salesman.commission as "Salesman Commission" from customer join salesman on customer.s_id = salesman.s_id where salesman.commission between 0.12 and 0.15;
+
+select customer.c_name as "Customer Name", orders.o_no as "Order No.", salesman.commission as "Salesman Commission", orders.o_pur_amt * salesman.commission as "Commission Amount" from orders join salesman on orders.s_id = salesman.s_id join customer on orders.c_id = customer.c_id where customer.grade="A" or customer.grade="D";
+
+select * from customer join orders on customer.c_id = orders.c_id where orders.order_date="01/01/2025" or orders.order_date="01/04/2025";
